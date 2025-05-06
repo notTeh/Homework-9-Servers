@@ -1,5 +1,8 @@
 import { promises as fs } from 'fs';
 import path from 'path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // TODO: Define a City class with name and id properties
 class City {
@@ -12,9 +15,9 @@ class HistoryService {
 
   constructor() {
     // Get the directory name of the current module
-    const __dirname = path.dirname(new URL(import.meta.url).pathname);
+    // const __dirname = path.dirname(new URL(import.meta.url).pathname);
     // Resolve to absolute path for searchHistory.json
-    this.historyFilePath = path.resolve(__dirname, '../searchHistory.json');
+    this.historyFilePath = path.resolve(__dirname, '../../db/db.json');
   }
 
   // TODO: Define a read method that reads from the searchHistory.json file

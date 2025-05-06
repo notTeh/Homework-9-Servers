@@ -11,20 +11,21 @@ interface Coordinates {
 // TODO: Define a class for the Weather object
 class Weather {
   constructor(
-    public temperature: number,
+    public tempF: number,
     public feelsLike: number,
     public humidity: number,
     public windSpeed: number,
-    public description: string,
+    public iconDescription: string,
     public icon: string,
-    public date: Date = new Date()
+    public date: Date = new Date(),
+    public city: string = '',
   ) {}
 }
 
 // TODO: Complete the WeatherService class
 class WeatherService {
   // TODO: Define the baseURL, API key, and city name properties
-  private baseURL = 'https://api.openweathermap.org/data/2.5';
+  private baseURL = 'https://api.openweathermap.org/';
   private apiKey = process.env.WEATHER_API_KEY;
   // TODO: Create fetchLocationData method
   private async fetchLocationData(query: string): Promise<any> {
@@ -111,7 +112,8 @@ class WeatherService {
     return forecast;
   }
   // TODO: Complete getWeatherForCity method
-  async getWeatherForCity(city: string): Promise<{ cityName: string, forecast: Weather[] }> {
+  // async getWeatherForCity(city: string): Promise<{ cityName: string, forecast: Weather[] }> {
+  async getWeatherForCity(city: string): Promise<Weather[]> {
     try {
       const coordinates = await this.fetchAndDestructureLocationData(city);
       const weatherData = await this.fetchWeatherData(coordinates);
@@ -119,10 +121,13 @@ class WeatherService {
       const currentWeather = this.parseCurrentWeather(weatherData);
       const forecast = this.buildForecastArray(currentWeather, weatherData.list);
       
-      return {
-        cityName: coordinates.name,
-        forecast
-      };
+      forecast[0].city = coordinates.name;
+
+      // return {
+      //   cityName: coordinates.name,
+      //   forecast
+      // };
+      return forecast;
     } catch (error) {
       console.error('Error fetching weather data:', error);
       throw error;
