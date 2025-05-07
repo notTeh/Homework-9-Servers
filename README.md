@@ -100,3 +100,7 @@ This project is submitted as academic coursework and is not licensed for distrib
 ## Author
 
 - [notTeh](https://github.com/notTeh)
+
+## Usage
+
+https://github.com/user-attachments/assets/f989deef-41ae-441d-b41c-362afa249773
